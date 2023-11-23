@@ -17,7 +17,5 @@ export async function GET(req) {
 
   const json = await res.json()
 
-  console.log(json)
-
   return Response.redirect(`${process.env.URL}/callback?access_token=${json.access_token}&refresh_token=${json.refresh_token}&type=${json.token_type}&expires_in=${json.expires_in}`, 302)
 }
