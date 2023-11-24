@@ -3,11 +3,11 @@
 import { useState, useEffect } from "react";
 import Image from 'next/image'
 
-import Footer from "../components/footer";
+import Footer from "../../components/Footer";
 
-// craete room option or join room option
 export default function Start() {
     const [user, setUser] = useState(null)
+    const [joining, setJoining] = useState(false)
 
     // get spotify account info
     const getSpotifyAccountInfo = async () => {
@@ -23,6 +23,11 @@ export default function Start() {
         const data = await res.json()
 
         setUser(data)
+    }
+
+    const handleJoin = (e) => {
+        console.log('joining')
+        setJoining(true)
     }
 
     // on render fetch data
@@ -58,14 +63,24 @@ export default function Start() {
                 <button
                     className='btn-primary'
                 >
-                    Create room
+                    Create
                 </button>
                 <button
                     className='btn-primary'
+                    onClick={handleJoin}
                 >
-                    Join room
+                    Join
                 </button>
             </div>
+
+            {joining && (
+                <div>
+                    <input
+                        type="text"
+                        className='rounded-full w-64 h-12 border-2 border-black outline-none px-8'
+                    />
+                </div>
+            )}
 
             <div className='flex flex-col items-center justify-center'>
                 <button

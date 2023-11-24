@@ -1,10 +1,10 @@
 'use client'
 
-import Footer from "./components/footer"
+import Footer from "../components/Footer"
 
 export default function Home() {
   const clientId = '58484fee39ab4d60a58c65cb2ab28525'
-  const redirectUri = 'http://localhost:3000/api/callback'
+  const redirectUri = window.location.origin + '/api/callback'
   const scopes = [
     'user-read-private',
     'streaming',
