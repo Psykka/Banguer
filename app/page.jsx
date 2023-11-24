@@ -1,10 +1,11 @@
 'use client'
 
 import Footer from "../components/Footer"
+import { useEffect, useState } from "react"
 
 export default function Home() {
   const clientId = '58484fee39ab4d60a58c65cb2ab28525'
-  const redirectUri = window.location.origin + '/api/callback'
+  const [redirectUri, setRedirectUri] = useState('')
   const scopes = [
     'user-read-private',
     'streaming',
@@ -35,6 +36,12 @@ export default function Home() {
       })
     }
   }
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setRedirectUri(window.location.origin + '/api/callback')
+    }
+  })
 
   return (
     <div className='flex flex-col items-center justify-center h-screen gap-4'>
