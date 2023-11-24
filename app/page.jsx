@@ -17,21 +17,23 @@ export default function Home() {
   ]
 
   const handleLogin = () => {
-    const popup = window.open(
-      `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}&scope=${scopes.join('%20')}`,
-      'Login with Spotify',
-      'width=800,height=600'
-    )
+    if (typeof window !== 'undefined') {
+      const popup = window.open(
+        `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}&scope=${scopes.join('%20')}`,
+        'Login with Spotify',
+        'width=800,height=600'
+      )
 
-    window.addEventListener('message', (event) => {
-      if (event.origin !== window.location.origin) return
+      window.addEventListener('message', (event) => {
+        if (event.origin !== window.location.origin) return
 
-      if (event.data.type === 'token') {
-        window.localStorage.setItem('token', event.data.payload)
-        popup.close()
-        window.location.href = '/start'
-      }
-    })
+        if (event.data.type === 'token') {
+          window.localStorage.setItem('token', event.data.payload)
+          popup.close()
+          window.location.href = '/start'
+        }
+      })
+    }
   }
 
   return (

@@ -8,18 +8,20 @@ export default function Playlists() {
     const [playlists, setPlaylists] = useState([])
 
     const getPlaylists = async () => {
-        const { access_token } = JSON.parse(window.localStorage.getItem('token'))
+        if (typeof window !== 'undefined') {
+            const { access_token } = JSON.parse(window.localStorage.getItem('token'))
 
-        const res = await fetch('https://api.spotify.com/v1/me/playlists', {
-            method: 'GET',
-            headers: {
-                Authorization: `Bearer ${access_token}`
-            }
-        })
+            const res = await fetch('https://api.spotify.com/v1/me/playlists', {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${access_token}`
+                }
+            })
 
-        const data = await res.json()
+            const data = await res.json()
 
-        setPlaylists(data.items)
+            setPlaylists(data.items)
+        }
     }
 
     useEffect(() => {
